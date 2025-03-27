@@ -365,62 +365,6 @@
 				</div>
 				<div><img src="images/img1.gif" alt=""></div>
 			</div>
-
-			<!--  我的客服盒子  -->
-			<div @click="showProp" class="service-man">
-				<img style="float: left;" src="images/userIcon.jpg" alt="">
-				<span style="margin-left: 14px;"> 我的客服 </span>
-			</div>
-			<!--  回到顶部  -->
-			<div @click="backTop" class="back-top">
-				<img src="https://gw.alicdn.com/imgextra/i2/O1CN01Y4zFv321hpwwLhdDy_!!6000000007017-2-tps-48-48.png"
-					alt="">
-				<span> 回到顶部 </span>
-			</div>
-			<!--  我的客服弹窗  -->
-			<el-dialog title="我的客服" :visible.sync="dialogVisible" width="50%" :before-close="handleClose"
-				:close-on-click-modal="false" :close-on-press-escape="false">
-				<div class="content-man">
-					<div class="man">
-						<img src="images/userIcon.jpg" alt="">
-						<span style="margin-left: 10px;"> 客服 </span>
-					</div>
-
-					<div class="man-content">
-						您好，请问有什么可以帮您？
-					</div>
-
-					<div v-for="(item, index) in messageArr" :key="index">
-						<div class="man" v-if="item.man">
-							<img src="images/userIcon.jpg" alt="">
-							<span style="margin-left: 10px;"> 客服 </span>
-						</div>
-
-						<div class="man-content" v-if="item.man">
-							{{ item.man }}
-						</div>
-
-						<div class="me" v-if="item.me">
-							<div class="help">
-								<img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202103%2F09%2F20210309094501_jfyix.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1675440358&t=9d37098b9bf853e3cd56ca769cfee318"
-									alt="">
-								<span style="margin-left: 10px;"> 我 </span>
-							</div>
-
-						</div>
-
-						<div class="me-conter" v-if="item.me">
-							{{ item.me }}
-						</div>
-					</div>
-				</div>
-				<div>
-					<el-input type="textarea" v-model="message" placeholder="请输入要发送的内容..."></el-input>
-				</div>
-				<span slot="footer" class="dialog-footer">
-					<el-button type="danger" @click="sendMessage"> 发 送 </el-button>
-				</span>
-			</el-dialog>
 		</div>
 	</body>
 
@@ -453,9 +397,6 @@
 						url: 'https://gw.alicdn.com/imgextra/i3/O1CN01Am8Sra21Zaice06ax_!!6000000006999-2-tps-1130-500.png_570x10000.jpg_.webp',
 					},
 				],
-				dialogVisible: false,
-				message: '', // 我发送的内容
-				messageArr: [], // 存放对话消息
 				hotData: {
 					data: [
 						[`<dl class="index-hot-dl">
@@ -516,7 +457,6 @@
 				return JSON.parse(localStorage.getItem('resultCars')).length;
 			} // 购物车中商品数量
 		},
-		watch: {},
 		methods: {
 			showCar() {
 				window.location.href = "/xhsTwo/pay.html";
@@ -546,49 +486,6 @@
 			/*  回到顶部  */
 			backTop() {
 				document.documentElement.scrollTop = 0;
-			},
-
-			/*  展示我的客服弹窗 */
-			showProp() {
-				this.dialogVisible = true;
-			},
-
-			/*  关闭弹窗  */
-			handleClose() {
-				this.dialogVisible = false;
-			},
-
-			/*  弹窗内 发送消息给客服  */
-			sendMessage() {
-				if (this.message === '') {
-					this.$message.warning("请先输入您的问题。");
-				} else {
-					console.log(this.messageArr.length);
-					// 第一次问问题
-					if (this.messageArr.length === 0) {
-						this.messageArr.push({
-							man: null,
-							me: this.message
-						})
-						this.message = '';
-					}
-					// 不是第一次问问题
-					if (this.messageArr.length > 0) {
-						let me = this.message;
-						this.messageArr.push({
-							man: null,
-							me: me
-						})
-						this.message = '';
-						setTimeout(() => {
-							this.messageArr.push({
-								man: '对不起，我回答不了你的问题，请换一个问题...',
-								me: null
-							})
-						}, 500)
-					}
-					console.log(this.messageArr);
-				}
 			},
 		},
 
@@ -622,5 +519,31 @@
 <style>
 	.el-carousel__indicators--horizontal {
 		display: none !important;
+	}
+	.h_24 {
+		display: none; /* 完全移除h_24元素 */
+	}
+	.sale {
+		margin-bottom: 10px; /* 添加合适的底部间距 */
+		clear: both; /* 确保不会有浮动元素影响布局 */
+		overflow: hidden; /* 处理内部浮动元素 */
+	}
+	#footer {
+		margin-top: 10px; /* 添加适当的顶部间距 */
+		margin-bottom: 0; /* 确保footer没有底部间距 */
+		padding-bottom: 0; /* 确保footer没有底部内边距 */
+		clear: both; /* 确保不会有浮动元素影响布局 */
+		position: relative; /* 确保正确的定位 */
+	}
+	/* 修复左右广告的定位问题 */
+	.banner.left-banner,
+	.banner.right-banner {
+		position: absolute; /* 使用绝对定位 */
+		z-index: 1; /* 确保它们位于正确的层级 */
+	}
+	/* 确保主要内容区域正确显示 */
+	#container {
+		position: relative; /* 设置相对定位以作为绝对定位的参考 */
+		z-index: 2; /* 确保主要内容显示在广告上方 */
 	}
 </style>
