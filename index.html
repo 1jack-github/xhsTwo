@@ -30,6 +30,8 @@
 
 	<body>
 		<div id="app">
+			<div class="team-name">巨无霸-张张AI组</div>
+			<div class="award-stamp">获奖<br>作品</div>
 			<div id="bg">
 				<div class="top_nav"></div>
 				<div class="nav_bg"></div>
@@ -363,7 +365,7 @@
 				<div class="add">版权 © 2003-2010 北京市橙汁e商城有限公司 ALL RIGHT RESERVED 热线400-5678-888
 					<br>ICP：桂ICP备0000000号
 				</div>
-				<div><img src="images/img1.gif" alt=""></div>
+				<!-- <div><img src="images/img1.gif" alt=""></div> -->
 			</div>
 		</div>
 	</body>
@@ -491,7 +493,7 @@
 
 		created() {
 			let aaa = localStorage.getItem('resultCars');
-			if (JSON.parse(aaa) === [] || !aaa) {
+			if (!aaa || JSON.parse(aaa).length === 0) {
 				localStorage.setItem('resultCars', JSON.stringify(store.state.cars));
 			}
 		},
@@ -529,7 +531,7 @@
 		overflow: hidden; /* 处理内部浮动元素 */
 	}
 	#footer {
-		margin-top: 10px; /* 添加适当的顶部间距 */
+		margin-top: 50px; /* 添加适当的顶部间距 */
 		margin-bottom: 0; /* 确保footer没有底部间距 */
 		padding-bottom: 0; /* 确保footer没有底部内边距 */
 		clear: both; /* 确保不会有浮动元素影响布局 */
@@ -545,5 +547,70 @@
 	#container {
 		position: relative; /* 设置相对定位以作为绝对定位的参考 */
 		z-index: 2; /* 确保主要内容显示在广告上方 */
+	}
+	
+	/* 团队名称样式 */
+	.team-name {
+		position: absolute;
+		top: 30px; /* 往下调1厘米（约30像素） */
+		left: 10px;
+		font-size: 32px; /* 较大的字体 */
+		font-weight: bold;
+		color: #FF4500; /* 橙红色 */
+		/* 使用书法字体 - 多种备选确保兼容性 */
+		font-family: "楷体", "华文行楷", "隶书", "STKaiti", "KaiTi", cursive, serif;
+		/* 多层阴影效果，看起来更酷炫 */
+		text-shadow: 
+			2px 2px 0 #000, /* 主阴影 */
+			-1px -1px 0 #FFD700, /* 金色描边 */
+			3px 3px 5px rgba(0,0,0,0.5), /* 柔和扩散阴影 */
+			0 0 8px rgba(255,69,0,0.7); /* 橙红色光晕效果 */
+		z-index: 1000; /* 确保显示在最上层 */
+		letter-spacing: 2px; /* 字间距增加 */
+		transform: rotate(-2deg); /* 微微倾斜增加艺术感 */
+	}
+	
+	/* 添加红色盖章效果 */
+	.award-stamp {
+		position: absolute;
+		top: 30px; /* 与团队名称同高 */
+		left: 300px; /* 位于团队名称右侧 */
+		width: 60px;
+		height: 60px;
+		background-color: #FF0000; /* 红色背景 */
+		color: white; /* 白色文字 */
+		font-family: "宋体", "SimSun", serif;
+		font-size: 18px;
+		font-weight: bold;
+		text-align: center;
+		line-height: 1.2;
+		padding-top: 10px;
+		border-radius: 50%; /* 圆形形状 */
+		border: 2px solid #800000; /* 深红色边框 */
+		box-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* 阴影效果 */
+		transform: rotate(15deg); /* 微微倾斜 */
+		z-index: 1001; /* 确保显示在最上层 */
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		opacity: 0.9; /* 轻微透明效果增强真实感 */
+	}
+	
+	/* 添加印章纹理效果 */
+	.award-stamp::before {
+		content: "";
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		right: 5px;
+		bottom: 5px;
+		border: 1px dashed white;
+		border-radius: 50%;
+		opacity: 0.7;
+	}
+	
+	/* 添加红印章颜色渐变效果 */
+	.award-stamp {
+		background: radial-gradient(circle, #FF0000 40%, #990000 100%);
 	}
 </style>

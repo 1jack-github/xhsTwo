@@ -496,7 +496,6 @@ nav li a:hover {
 	margin: 50px auto;
 	clear: both;
 	text-align: center;
-	height: 150px;
 }
 
 #footer .add {
@@ -505,7 +504,7 @@ nav li a:hover {
 	color: #fff;
 	padding-top: 12px;
 	line-height: 20px;
-	margin-bottom: 12px;
+	/* margin-bottom: 12px; */
 }
 
 /* 订单页 */
